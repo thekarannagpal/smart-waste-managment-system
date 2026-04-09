@@ -35,7 +35,7 @@ export default function CollectorMap({ token }) {
 
   const fetchReports = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/reports');
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/reports`);
       const data = await response.json();
       setReports(data);
     } catch (err) {
@@ -59,7 +59,7 @@ export default function CollectorMap({ token }) {
     if (isComplete) formData.append('image', proofImage);
 
     try {
-      const response = await fetch(`http://localhost:5000/api/reports/${reportId}/${action}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/reports/${reportId}/${action}`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
         body: isComplete ? formData : undefined
@@ -114,7 +114,7 @@ export default function CollectorMap({ token }) {
               >
                 <Popup>
                   <div className="w-48">
-                    <img src={`http://localhost:5000${report.imageUrl}`} alt="Waste" className="w-full h-32 object-cover rounded-md mb-2" />
+                    <img src={`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${report.imageUrl}`} alt="Waste" className="w-full h-32 object-cover rounded-md mb-2" />
                     <h3 className="font-bold text-lg capitalize">{report.wasteType}</h3>
                     <p className="text-sm text-slate-500 mb-2">Status: {report.status}</p>
                     

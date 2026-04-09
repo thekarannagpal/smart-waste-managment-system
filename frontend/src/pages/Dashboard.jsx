@@ -59,7 +59,7 @@ export default function Dashboard() {
   }, [reports]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/reports')
+    fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/reports`)
       .then(res => res.json())
       .then(data => {
         if(Array.isArray(data)) setReports(data);

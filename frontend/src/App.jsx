@@ -16,7 +16,7 @@ const Sidebar = ({ user, handleLogout }) => {
     if (!user) return;
     const fetchPoints = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/leaderboard');
+        const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/leaderboard`);
         const data = await response.json();
         const me = data.find(u => u.username === user.username);
         if (me) setMyPoints(me.points);

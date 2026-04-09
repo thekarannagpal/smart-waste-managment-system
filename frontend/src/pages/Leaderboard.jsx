@@ -13,7 +13,7 @@ export default function Leaderboard() {
   const [data, setData] = useState(mockData);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/leaderboard')
+    fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/leaderboard`)
       .then(res => res.json())
       .then(apiUsers => {
         if (Array.isArray(apiUsers)) {
