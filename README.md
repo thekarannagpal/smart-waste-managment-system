@@ -49,6 +49,4 @@ uvicorn main:app --reload
 
 ---
 
-### What's Next for the Hackathon?
-- The backend `index.js` currently mocks the call to the Python ML Service for the MVP presentation. You can update the `app.post('/api/reports')` route in `backend/src/index.js` to send real API requests to `http://localhost:8000/detect`.
-- Navigate to the frontend dashboard and try uploading waste photos!
+
