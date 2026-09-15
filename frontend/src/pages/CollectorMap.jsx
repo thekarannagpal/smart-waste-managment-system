@@ -79,20 +79,20 @@ export default function CollectorMap({ token }) {
     }
   };
 
-  if (loading) return <div className="p-8 text-center">Loading map...</div>;
+  if (loading) return <div className="p-8 text-center text-slate-500 font-medium">Loading map...</div>;
 
   return (
-    <div className="h-full flex flex-col space-y-4">
-      <h1 className="text-3xl font-bold">Collector Map</h1>
-      <div className="bg-white p-4 rounded-xl shadow-md border mb-4">
-        <div className="flex gap-4 items-center mb-2">
-          <span className="flex items-center"><img src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png" className="w-4 mr-2" /> Pending</span>
-          <span className="flex items-center"><img src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-yellow.png" className="w-4 mr-2" /> My Tasks (Assigned)</span>
-          <span className="flex items-center"><img src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png" className="w-4 mr-2" /> Completed</span>
+    <div className="w-full flex flex-col space-y-4 animate-in fade-in duration-500">
+      <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">Collector Map</h1>
+      <div className="bg-white p-3.5 sm:p-4 rounded-xl sm:rounded-2xl shadow-sm border border-slate-200">
+        <div className="flex flex-wrap gap-3 sm:gap-6 items-center text-xs sm:text-sm text-slate-700 font-medium">
+          <span className="flex items-center"><img src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png" className="w-3.5 sm:w-4 mr-1.5" alt="red" /> Pending</span>
+          <span className="flex items-center"><img src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-yellow.png" className="w-3.5 sm:w-4 mr-1.5" alt="yellow" /> My Tasks (Assigned)</span>
+          <span className="flex items-center"><img src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png" className="w-3.5 sm:w-4 mr-1.5" alt="green" /> Completed</span>
         </div>
       </div>
 
-      <div className="flex-1 rounded-2xl overflow-hidden shadow-lg border border-slate-200">
+      <div className="w-full h-[60vh] min-h-[350px] sm:h-[500px] lg:h-[calc(100vh-190px)] rounded-xl sm:rounded-2xl overflow-hidden shadow-lg border border-slate-200 relative">
         <MapContainer center={[28.6139, 77.2090]} zoom={13} className="w-full h-full">
           <TileLayer
             attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a>'
@@ -113,19 +113,19 @@ export default function CollectorMap({ token }) {
                 }}
               >
                 <Popup>
-                  <div className="w-48">
-                    <img src={`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${report.imageUrl}`} alt="Waste" className="w-full h-32 object-cover rounded-md mb-2" />
-                    <h3 className="font-bold text-lg capitalize">{report.wasteType}</h3>
-                    <p className="text-sm text-slate-500 mb-2">Status: {report.status}</p>
+                  <div className="w-44 sm:w-48">
+                    <img src={`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${report.imageUrl}`} alt="Waste" className="w-full h-28 sm:h-32 object-cover rounded-md mb-2" />
+                    <h3 className="font-bold text-base sm:text-lg capitalize">{report.wasteType}</h3>
+                    <p className="text-xs sm:text-sm text-slate-500 mb-2">Status: <span className="font-semibold capitalize text-slate-700">{report.status}</span></p>
                     
                     {report.status === 'pending' && (
-                      <button onClick={() => handleAction('assign', report._id)} className="w-full bg-primary-600 text-white rounded p-1 text-sm font-bold">Accept Task</button>
+                      <button onClick={() => handleAction('assign', report._id)} className="w-full bg-primary-600 hover:bg-primary-700 text-white rounded-lg py-1.5 text-xs sm:text-sm font-bold shadow-md transition-colors">Accept Task</button>
                     )}
                     
                     {report.status === 'assigned' && (
                       <div className="space-y-2">
-                        <input type="file" accept="image/*" onChange={(e) => setProofImage(e.target.files[0])} className="text-xs" />
-                        <button onClick={() => handleAction('complete', report._id)} className="w-full bg-green-600 text-white rounded p-1 text-sm font-bold">Mark Completed</button>
+                        <input type="file" accept="image/*" onChange={(e) => setProofImage(e.target.files[0])} className="text-[11px] w-full border rounded p-1" />
+                        <button onClick={() => handleAction('complete', report._id)} className="w-full bg-green-600 hover:bg-green-700 text-white rounded-lg py-1.5 text-xs sm:text-sm font-bold shadow-md transition-colors">Mark Completed</button>
                       </div>
                     )}
                   </div>

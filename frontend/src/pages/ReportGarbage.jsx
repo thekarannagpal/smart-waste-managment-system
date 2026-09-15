@@ -81,71 +81,71 @@ export default function ReportGarbage({ token }) {
   };
 
   return (
-    <div className="max-w-3xl mx-auto space-y-8 animate-in slide-in-from-bottom-8 duration-500">
-      <header className="mb-8">
-        <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Report Waste</h1>
-        <p className="text-slate-500 mt-1">Upload a photo, let AI identify it, and earn reward points!</p>
+    <div className="max-w-3xl mx-auto space-y-6 sm:space-y-8 animate-in slide-in-from-bottom-8 duration-500 w-full">
+      <header className="mb-4 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Report Waste</h1>
+        <p className="text-xs sm:text-sm text-slate-500 mt-1">Upload a photo, let AI identify it, and earn reward points!</p>
       </header>
 
       {!result ? (
-        <form onSubmit={handleSubmit} className="bg-white p-8 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 space-y-8">
+        <form onSubmit={handleSubmit} className="bg-white p-5 sm:p-8 rounded-2xl sm:rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 space-y-6 sm:space-y-8">
           
           {errorMsg && (
-            <div className="p-4 bg-red-50 text-red-700 border border-red-200 rounded-xl text-center font-medium">
+            <div className="p-3.5 sm:p-4 bg-red-50 text-red-700 border border-red-200 rounded-xl text-center text-xs sm:text-sm font-medium">
               {errorMsg}
             </div>
           )}
 
-          <div className="space-y-4">
-            <label className="block text-sm font-semibold text-slate-700">1. Upload Image</label>
-            <div className="w-full flex justify-center px-6 pt-5 pb-6 border-2 border-slate-200 border-dashed rounded-2xl hover:border-primary-400 hover:bg-primary-50 transition-colors duration-300 relative overflow-hidden group">
+          <div className="space-y-3 sm:space-y-4">
+            <label className="block text-xs sm:text-sm font-semibold text-slate-700">1. Upload Image</label>
+            <div className="w-full flex justify-center px-4 sm:px-6 pt-4 sm:pt-5 pb-5 sm:pb-6 border-2 border-slate-200 border-dashed rounded-xl sm:rounded-2xl hover:border-primary-400 hover:bg-primary-50 transition-colors duration-300 relative overflow-hidden group">
               <div className="space-y-2 text-center z-10">
                 {preview ? (
-                  <img src={preview} alt="Preview" className="mx-auto h-48 rounded-lg object-cover shadow-sm" />
+                  <img src={preview} alt="Preview" className="mx-auto h-36 sm:h-48 rounded-lg object-cover shadow-sm" />
                 ) : (
-                  <UploadCloud className="mx-auto h-12 w-12 text-slate-400 group-hover:text-primary-500 transition-colors" />
+                  <UploadCloud className="mx-auto h-10 w-10 sm:h-12 sm:w-12 text-slate-400 group-hover:text-primary-500 transition-colors" />
                 )}
-                <div className="flex text-sm text-slate-600 justify-center">
+                <div className="flex text-xs sm:text-sm text-slate-600 justify-center">
                   <label htmlFor="file-upload" className="relative cursor-pointer rounded-md font-medium text-primary-600 hover:text-primary-500 focus-within:outline-none">
-                    <span>{preview ? 'Change image' : 'Upload a file'}</span>
+                    <span>{preview ? 'Change image' : 'Upload or Take Photo'}</span>
                     <input id="file-upload" name="file-upload" type="file" className="sr-only" onChange={handleImageChange} accept="image/*" />
                   </label>
-                  {!preview && <p className="pl-1">or drag and drop</p>}
+                  {!preview && <p className="pl-1 hidden sm:inline">or drag and drop</p>}
                 </div>
-                {!preview && <p className="text-xs text-slate-500">PNG, JPG up to 10MB</p>}
+                {!preview && <p className="text-[11px] sm:text-xs text-slate-500">PNG, JPG up to 10MB</p>}
               </div>
             </div>
           </div>
 
-          <div className="space-y-4">
-             <label className="block text-sm font-semibold text-slate-700 flex items-center justify-between">
+          <div className="space-y-3 sm:space-y-4">
+             <label className="block text-xs sm:text-sm font-semibold text-slate-700 flex items-center justify-between">
                <span>2. Location details</span>
                {location && <span className="text-xs text-primary-600 flex items-center"><CheckCircle size={14} className="mr-1" />Location fixed</span>}
              </label>
              <button
                type="button"
                onClick={getLocation}
-               className={`w-full flex items-center justify-center space-x-2 py-4 px-6 border rounded-2xl text-sm font-medium transition-all ${
+               className={`w-full flex items-center justify-center space-x-2 py-3.5 sm:py-4 px-4 sm:px-6 border rounded-xl sm:rounded-2xl text-xs sm:text-sm font-medium transition-all ${
                  location 
                    ? 'border-primary-200 bg-primary-50 text-primary-700' 
                    : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
                }`}
              >
-               {loadingLoc ? <Loader2 className="animate-spin" size={20} /> : <Navigation size={20} className={location ? "text-primary-500" : "text-slate-400"} />}
-               <span>{location ? `Lat: ${location.lat.toFixed(4)}, Lng: ${location.lng.toFixed(4)}` : 'Fetch GPS Location'}</span>
+               {loadingLoc ? <Loader2 className="animate-spin" size={18} /> : <Navigation size={18} className={location ? "text-primary-500" : "text-slate-400"} />}
+               <span className="truncate">{location ? `Lat: ${location.lat.toFixed(4)}, Lng: ${location.lng.toFixed(4)}` : 'Fetch GPS Location'}</span>
              </button>
           </div>
 
           <button
             type="submit"
             disabled={submitting || !image || !location}
-            className={`w-full py-4 px-6 border border-transparent rounded-2xl shadow-lg text-lg font-semibold text-white bg-primary-600 hover:bg-primary-700 outline-none transition-all duration-300 ${
+            className={`w-full py-3.5 sm:py-4 px-4 sm:px-6 border border-transparent rounded-xl sm:rounded-2xl shadow-lg text-base sm:text-lg font-semibold text-white bg-primary-600 hover:bg-primary-700 outline-none transition-all duration-300 ${
               (submitting || !image || !location) ? 'opacity-50 cursor-not-allowed shadow-none' : 'hover:shadow-primary-500/30 hover:-translate-y-1'
             }`}
           >
             {submitting ? (
               <span className="flex items-center justify-center">
-                <Loader2 className="animate-spin mr-2" size={24} />
+                <Loader2 className="animate-spin mr-2" size={20} />
                 AI Scanning Image...
               </span>
             ) : (
@@ -154,32 +154,32 @@ export default function ReportGarbage({ token }) {
           </button>
         </form>
       ) : (
-        <div className="bg-gradient-to-br from-green-500 to-emerald-700 rounded-3xl p-10 text-white shadow-xl shadow-green-500/20 text-center animate-in zoom-in-95 duration-500 border border-green-400">
-           <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-md">
-             <CheckCircle size={48} className="text-white drop-shadow-md" />
+        <div className="bg-gradient-to-br from-green-500 to-emerald-700 rounded-2xl sm:rounded-3xl p-6 sm:p-10 text-white shadow-xl shadow-green-500/20 text-center animate-in zoom-in-95 duration-500 border border-green-400">
+           <div className="w-16 h-16 sm:w-24 sm:h-24 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 backdrop-blur-md">
+             <CheckCircle size={36} className="text-white drop-shadow-md sm:w-12 sm:h-12" />
            </div>
-           <h2 className="text-3xl font-bold mb-2">Report Validated!</h2>
-           <p className="text-green-100 text-lg mb-8">YOLOv8 AI successfully analyzed your submission.</p>
+           <h2 className="text-2xl sm:text-3xl font-bold mb-1 sm:mb-2">Report Validated!</h2>
+           <p className="text-green-100 text-sm sm:text-lg mb-6 sm:mb-8">YOLOv8 AI successfully analyzed your submission.</p>
            
-           <div className="grid grid-cols-2 gap-4 max-w-sm mx-auto mb-8">
-              <div className="bg-black/10 rounded-2xl p-4 backdrop-blur-sm border border-white/10">
-                <p className="text-green-200 text-xs font-semibold uppercase tracking-wider mb-1">Detected Object</p>
-                <p className="font-bold text-2xl">{result.wasteType}</p>
+           <div className="grid grid-cols-2 gap-3 sm:gap-4 max-w-sm mx-auto mb-6 sm:mb-8">
+              <div className="bg-black/10 rounded-xl sm:rounded-2xl p-3 sm:p-4 backdrop-blur-sm border border-white/10">
+                <p className="text-green-200 text-[10px] sm:text-xs font-semibold uppercase tracking-wider mb-1">Detected Object</p>
+                <p className="font-bold text-lg sm:text-2xl truncate">{result.wasteType}</p>
               </div>
-              <div className="bg-black/10 rounded-2xl p-4 backdrop-blur-sm border border-white/10">
-                <p className="text-green-200 text-xs font-semibold uppercase tracking-wider mb-1">AI Confidence</p>
-                <p className="font-bold text-2xl">{result.confidence}%</p>
+              <div className="bg-black/10 rounded-xl sm:rounded-2xl p-3 sm:p-4 backdrop-blur-sm border border-white/10">
+                <p className="text-green-200 text-[10px] sm:text-xs font-semibold uppercase tracking-wider mb-1">AI Confidence</p>
+                <p className="font-bold text-lg sm:text-2xl">{result.confidence}%</p>
               </div>
            </div>
 
-           <div className="inline-flex items-center space-x-2 bg-yellow-400 text-yellow-900 px-6 py-3 rounded-full font-bold shadow-lg">
-              <Trophy size={20} />
+           <div className="inline-flex items-center space-x-2 bg-yellow-400 text-yellow-900 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full text-sm sm:text-base font-bold shadow-lg">
+              <Trophy size={18} />
               <span>+{result.points} Eco Points Earned!</span>
            </div>
 
            <button 
              onClick={() => setResult(null)}
-             className="mt-10 mx-auto block text-sm font-medium text-white/80 hover:text-white hover:underline transition-all"
+             className="mt-6 sm:mt-10 mx-auto block text-xs sm:text-sm font-medium text-white/80 hover:text-white hover:underline transition-all"
            >
              Report another area
            </button>
